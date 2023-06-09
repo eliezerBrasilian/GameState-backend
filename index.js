@@ -1,9 +1,11 @@
+let cors = require('cors');
 let router = require('./routes/routes');
 let bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const port = 80;
 
+app.use(cors());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json

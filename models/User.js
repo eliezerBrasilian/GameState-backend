@@ -18,6 +18,23 @@ class User {
       return false;
     }
   }
+  async findByEmail(email) {
+    try {
+      var result = await knex
+        .select('*')
+        .where({ email: email })
+        .table('usuario_tb');
+
+      if (result.length > 0) {
+        return result[0];
+      } else {
+        return undefined;
+      }
+    } catch (err) {
+      console.log(err);
+      return undefined;
+    }
+  }
 }
 
 module.exports = new User();

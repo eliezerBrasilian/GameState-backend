@@ -1,4 +1,6 @@
 let User = require('../models/User');
+var jwt = require('jsonwebtoken');
+let secret = 'hdudidhd8383bdbdbdbd';
 class UserController {
   async create(req, res) {
     let { email, nome, senha } = req.body;
@@ -13,6 +15,36 @@ class UserController {
       await User.new(email, nome, senha);
       res.status(200);
       res.send({ success: 'dados inseridos' });
+    }
+  }
+  async login(req, res) {
+    var { email, senha } = req.body;
+
+    var user = await User.findByEmail(email);
+
+    if (user != undefined) {
+      //var resultado = await bcrypt.compare(password,user.password);
+      var resultado = await String(senha).localeCompare(String(user.senha));
+      console.log(
+        `senhas: ${String(senha)} : ${String(
+          user.senha
+        )} - resultado: ${resultado}`
+      );
+
+      if (resultado === 0) {
+        var token = jwt.sign(
+          { email: user.email, nome: user.nome, isPremium: user.isPremium },
+          secret
+        );
+
+        res.status(200);
+        res.json({ token: token });
+      } else {
+        res.status(406);
+        res.send('Senha incorreta');
+      }
+    } else {
+      res.json({ status: false });
     }
   }
 }
