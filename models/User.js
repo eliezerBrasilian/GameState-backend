@@ -9,6 +9,15 @@ class User {
       console.log(err);
     }
   }
+  async findEmail(email) {
+    try {
+      let q = await knex.select('*').from('usuario_tb').where({ email: email });
+      return q.length > 0 ? true : false;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
 }
 
 module.exports = new User();
