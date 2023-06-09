@@ -12,9 +12,16 @@ class UserController {
       res.json({ err: 'O email já está em uso!' });
       return;
     } else {
-      await User.new(email, nome, senha);
-      res.status(200);
-      res.send({ success: 'dados inseridos' });
+      //verificar se os dados estao vazios antes
+      if (nome !== undefined && email !== undefined && senha !== undefined) {
+        console.log('nome: ' + nome);
+        await User.new(email, nome, senha);
+        res.status(200);
+        res.send({ success: 'dados inseridos' });
+      } else {
+        res.status(403);
+        res.send({ err: 'algum dado está faltando' });
+      }
     }
   }
   async login(req, res) {
