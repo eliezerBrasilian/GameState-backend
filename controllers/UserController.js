@@ -40,7 +40,12 @@ class UserController {
 
       if (resultado === 0) {
         var token = jwt.sign(
-          { email: user.email, nome: user.nome, isPremium: user.isPremium },
+          {
+            id: user.id,
+            email: user.email,
+            nome: user.nome,
+            isPremium: user.isPremium,
+          },
           secret
         );
 
