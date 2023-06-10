@@ -1,5 +1,7 @@
 let knex = require('../database/connection');
 let bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+let secret = 'hdudidhd8383bdbdbdbd';
 class User {
   async new(email, nome, senha) {
     try {
@@ -33,6 +35,16 @@ class User {
     } catch (err) {
       console.log(err);
       return undefined;
+    }
+  }
+  async userData(id) {
+    try {
+      let q = await knex.select('*').from('usuario_tb').where({ id: id });
+      console.log(q);
+      return q.length > 0 ? true : false;
+    } catch (e) {
+      console.log(e);
+      return false;
     }
   }
 }

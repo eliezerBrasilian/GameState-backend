@@ -1,6 +1,7 @@
 let User = require('../models/User');
 var jwt = require('jsonwebtoken');
 let secret = 'hdudidhd8383bdbdbdbd';
+
 class UserController {
   async create(req, res) {
     let { email, nome, senha } = req.body;
@@ -22,6 +23,38 @@ class UserController {
         res.status(403);
         res.send({ err: 'algum dado está faltando' });
       }
+    }
+  }
+  async userData(req, res) {
+    const authToken = req.headers['authorization'];
+    if (authToken != undefined) {
+      console.log('Token veio');
+      console.log(authToken);
+      const bearer = authToken.split(' ');
+      var token = bearer[1];
+      console.log(token);
+
+      try {
+        var decoded = jwt.verify(token, secret);
+        console.log(decoded);
+        res.status(200);
+
+        res.json({
+          token: token,
+          id: decoded.id,
+          email: decoded.email,
+          nome: decoded.nome,
+          isPremium: decoded.isPremium,
+        });
+      } catch (err) {
+        res.status(403);
+        res.send('Você não está autenticado');
+        return;
+      }
+    } else {
+      res.status(403);
+      res.send('Você não está autenticado');
+      return;
     }
   }
   async login(req, res) {
@@ -50,7 +83,13 @@ class UserController {
         );
 
         res.status(200);
-        res.json({ token: token });
+        res.json({
+          token: token,
+          id: user.id,
+          email: user.email,
+          nome: user.nome,
+          isPremium: user.isPremium,
+        });
       } else {
         res.status(406);
         res.send('Senha incorreta');

@@ -19,6 +19,18 @@ class Game {
       return false;
     }
   }
+  async listGames(id_usuario) {
+    try {
+      var result = await knex
+        .select('*')
+        .table('jogos_tb')
+        .where({ id_usuario: id_usuario });
+      return result;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
 }
 
 module.exports = new Game();

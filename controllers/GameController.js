@@ -22,6 +22,12 @@ class GameController {
       res.send({ err: 'falha ao inserir' });
     }
   }
+  async listGames(req, res) {
+    let { id_usuario } = req.body;
+    console.log('ID DO USUARIO: ' + id_usuario);
+    let games = await Game.listGames(id_usuario);
+    res.send({ games: games });
+  }
 }
 
 module.exports = new GameController();
