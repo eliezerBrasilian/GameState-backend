@@ -1,7 +1,4 @@
 let knex = require('../database/connection');
-let bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
-let secret = 'hdudidhd8383bdbdbdbd';
 class User {
   async new(email, nome, senha) {
     try {

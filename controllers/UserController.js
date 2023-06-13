@@ -45,6 +45,7 @@ class UserController {
           email: decoded.email,
           nome: decoded.nome,
           isPremium: decoded.isPremium,
+          username: decoded.username,
         });
       } catch (err) {
         res.status(403);
@@ -78,6 +79,7 @@ class UserController {
             email: user.email,
             nome: user.nome,
             isPremium: user.isPremium,
+            username: user.username,
           },
           secret
         );
@@ -89,6 +91,7 @@ class UserController {
           email: user.email,
           nome: user.nome,
           isPremium: user.isPremium,
+          username: user.username,
         });
       } else {
         res.status(406);

@@ -24,11 +24,22 @@ class Game {
       var result = await knex
         .select('*')
         .table('jogos_tb')
-        .where({ id_usuario: id_usuario });
+        .where({ id_usuario: id_usuario })
+        .orderBy('id', 'desc');
       return result;
     } catch (error) {
       console.log(error);
       return [];
+    }
+  }
+  async deleteGame(id_game) {
+    try {
+      let result = await knex('jogos_tb').where('id', id_game).del();
+      console.log('result: ' + result);
+      return true;
+    } catch (e) {
+      console.log('nao pode ser excluido');
+      return false;
     }
   }
 }

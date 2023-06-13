@@ -8,8 +8,9 @@ let GameController = require('../controllers/GameController');
 router.get('/', HomeController.index);
 router.post('/user', UserController.create);
 router.post('/user/login', UserController.login);
-router.get('/me', UserAuth, UserController.userData);
-router.get('/games', UserAuth, GameController.listGames);
+router.get('/me', UserController.userData);
+router.get('/games/:id', UserAuth, GameController.listGames);
 router.post('/game', UserAuth, GameController.saveGame);
+router.post('/game/:id', UserAuth, GameController.deleteGame);
 
 module.exports = router;
