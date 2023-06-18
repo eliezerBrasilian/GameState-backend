@@ -36,7 +36,9 @@ class Game {
     try {
       let result = await knex('jogos_tb').where('id', id_game).del();
       console.log('result: ' + result);
-      return true;
+      if (result == 1) {
+        return true;
+      } else return false;
     } catch (e) {
       console.log('nao pode ser excluido');
       return false;

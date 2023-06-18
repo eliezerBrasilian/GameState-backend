@@ -44,7 +44,7 @@ class GameController {
       res.send({ success: 'game deletado com sucesso' });
       return;
     }
-    res.status(404);
+    res.status(409);
     res.send({ err: 'falha ao deletar game' });
   }
 }
