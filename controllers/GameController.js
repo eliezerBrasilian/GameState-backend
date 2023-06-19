@@ -23,15 +23,30 @@ class GameController {
     }
   }
   async listGames(req, res) {
-    let id_usuario = req.params.id;
-    if (id_usuario === undefined) {
-      res.status(404);
-      res.send('id invalido');
-      return;
+    // let id_usuario = req.params.id;
+    // if (id_usuario === undefined) {
+    //   res.status(404);
+    //   res.send('id invalido');
+    //   return;
+    // }
+    // res.status(200);
+    // let games = await Game.listGames(id_usuario);
+    // res.send({ games: games });
+
+    /*paginação funcionando*/
+    try {
+      let id_usuario = req.params.id;
+      const pageNumber = parseInt(req.body.page);
+      console.log(pageNumber);
+      const pageSize = 2; // Número de itens por página
+
+      const users = await Game.listGames(id_usuario, pageNumber, pageSize);
+
+      res.json(users);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Erro ao obter usuários.' });
     }
-    res.status(200);
-    let games = await Game.listGames(id_usuario);
-    res.send({ games: games });
   }
   async deleteGame(req, res) {
     let id_game = req.params.id;

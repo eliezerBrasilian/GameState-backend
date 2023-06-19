@@ -19,18 +19,31 @@ class Game {
       return false;
     }
   }
-  async listGames(id_usuario) {
+  async listGames(id_usuario, pageNumber, pageSize) {
     try {
-      var result = await knex
+      const offset = (pageNumber - 1) * pageSize;
+
+      const users = await knex('jogos_tb')
         .select('*')
-        .table('jogos_tb')
         .where({ id_usuario: id_usuario })
-        .orderBy('id', 'desc');
-      return result;
+        .offset(offset)
+        .limit(pageSize);
+
+      return users;
     } catch (error) {
-      console.log(error);
-      return [];
+      throw new Error('Erro ao obter usuários: ' + error.message);
     }
+    // try {
+    //   var result = await knex
+    //     .select('*')
+    //     .table('jogos_tb')
+    //     .where({ id_usuario: id_usuario })
+    //     .orderBy('id', 'desc');
+    //   return result;
+    // } catch (error) {
+    //   console.log(error);
+    //   return [];
+    // }
   }
   async deleteGame(id_game) {
     try {
