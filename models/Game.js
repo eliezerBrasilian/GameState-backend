@@ -1,6 +1,6 @@
 let knex = require('../database/connection');
 class Game {
-  async new(id_usuario, id_console, nome, descricao, capa, finishedDate) {
+  async new(id_usuario, id_console, nome, descricao, capa, finisheddate) {
     try {
       await knex
         .insert({
@@ -9,7 +9,7 @@ class Game {
           nome: nome,
           descricao: descricao,
           capa: capa,
-          finishedDate: finishedDate,
+          finisheddate: finisheddate,
         })
         .table('jogos_tb');
       console.log('inseriu game');

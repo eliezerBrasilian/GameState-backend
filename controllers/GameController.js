@@ -2,7 +2,7 @@ let Game = require('../models/Game');
 
 class GameController {
   async saveGame(req, res) {
-    let { id_usuario, id_console, nome, descricao, capa, finishedDate } =
+    let { id_usuario, id_console, nome, descricao, capa, finisheddate } =
       req.body;
 
     //verificar antes
@@ -12,7 +12,7 @@ class GameController {
       nome,
       descricao,
       capa,
-      finishedDate
+      finisheddate
     );
     if (IsGameSaved) {
       res.status(200);
