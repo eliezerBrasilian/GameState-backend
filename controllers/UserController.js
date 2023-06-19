@@ -60,6 +60,7 @@ class UserController {
   }
   async login(req, res) {
     var { email, senha } = req.body;
+    console.log(req.body.email);
 
     var user = await User.findByEmail(email);
 
@@ -98,7 +99,7 @@ class UserController {
         res.send('Senha incorreta');
       }
     } else {
-      res.json({ status: false });
+      res.json({ err: false });
     }
   }
 }

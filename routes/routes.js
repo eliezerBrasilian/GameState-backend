@@ -6,6 +6,7 @@ let UserController = require('../controllers/UserController');
 let UserAuth = require('../middleware/UserAuth');
 let GameController = require('../controllers/GameController');
 let ConsoleController = require('../controllers/ConsoleController');
+let MusicController = require('../controllers/MusicController');
 router.get('/', HomeController.index);
 router.post('/user', UserController.create);
 router.post('/user/login', UserController.login);
