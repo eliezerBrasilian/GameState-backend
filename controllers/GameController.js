@@ -36,7 +36,7 @@ class GameController {
     /*paginação funcionando*/
     try {
       let id_usuario = req.params.id;
-      const pageNumber = parseInt(req.body.page);
+      const pageNumber = parseInt(req.params.page);
       console.log(pageNumber);
       const pageSize = 2; // Número de itens por página
 
