@@ -40,9 +40,9 @@ class GameController {
       console.log(pageNumber);
       const pageSize = 2; // Número de itens por página
 
-      const users = await Game.listGames(id_usuario, pageNumber, pageSize);
+      const games = await Game.listGames(id_usuario, pageNumber, pageSize);
 
-      res.json(users);
+      res.json(games);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Erro ao obter usuários.' });

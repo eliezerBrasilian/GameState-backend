@@ -27,7 +27,8 @@ class Game {
         .select('*')
         .where({ id_usuario: id_usuario })
         .offset(offset)
-        .limit(pageSize);
+        .limit(pageSize)
+        .orderBy('id', 'desc');
 
       return users;
     } catch (error) {
