@@ -38,7 +38,7 @@ class GameController {
       let id_usuario = req.params.id;
       const pageNumber = parseInt(req.params.page);
       console.log(pageNumber);
-      const pageSize = 2; // Número de itens por página
+      const pageSize = 10; // Número de itens por página
 
       const games = await Game.listGames(id_usuario, pageNumber, pageSize);
 
