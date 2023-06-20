@@ -32,7 +32,8 @@ class Game {
 
       return users;
     } catch (error) {
-      throw new Error('Erro ao obter usuários: ' + error.message);
+      //throw new Error('Erro ao obter usuários: ' + error.message);
+      return [];
     }
     // try {
     //   var result = await knex
