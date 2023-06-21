@@ -1,26 +1,26 @@
 require('dotenv').config();
-
+const { database, host, port, user, password } = process.env;
 const knex = require('knex');
 
 const db = knex({
   client: 'pg',
   connection: {
-    connectionString:
-      'postgres://fwibogvq:05PJlaULYDIHU6Pr34fnTOQ2lth1sNyb@motty.db.elephantsql.com/fwibogvq',
+    connectionString: `postgres://${user}:${password}@motty.db.elephantsql.com/${user}`,
     ssl: true,
   },
 });
-// Exemplo de seleção de dados
 
-// const { database, host, user, password } = process.env;
+module.exports = db;
+
 // var knex = require('knex')({
-//   client: 'pg',
+//   client: 'mysql2',
 //   connection: {
 //     host: host,
+//     port: port,
 //     user: user,
 //     password: password,
 //     database: database,
 //   },
 // });
 
-module.exports = db;
+// module.exports = knex;
