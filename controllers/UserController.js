@@ -5,7 +5,7 @@ let secret = 'hdudidhd8383bdbdbdbd';
 class UserController {
   async create(req, res) {
     let { email, nome, senha } = req.body;
-
+    console.log('email: ' + email);
     let emailExists = await User.findEmail(email);
     console.log(emailExists);
     if (emailExists) {
@@ -60,8 +60,6 @@ class UserController {
   }
   async login(req, res) {
     var { email, senha } = req.body;
-    console.log(req.body.email);
-
     var user = await User.findByEmail(email);
 
     if (user != undefined) {
