@@ -37,7 +37,7 @@ class GameController {
     try {
       let id_usuario = req.params.id;
       const pageNumber = parseInt(req.params.page);
-      console.log(pageNumber);
+
       const pageSize = 20; // Número de itens por página
 
       const games = await Game.listGames(id_usuario, pageNumber, pageSize);
@@ -45,7 +45,7 @@ class GameController {
       res.json(games);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Erro ao obter usuários.' });
+      res.status(500).json({ error: 'Erro ao obter usuários. - ' + error });
     }
   }
   async deleteGame(req, res) {
