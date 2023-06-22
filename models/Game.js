@@ -40,7 +40,7 @@ class Game {
         .orderBy('j.id', 'desc');
       console.log('sucesso');
 
-      return users;
+      return games;
 
       // knex('jogos_tb')
       //   .join('consoles_tb', 'jogos_tb.id_console', '=', 'consoles_tb.id')
