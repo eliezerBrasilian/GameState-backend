@@ -97,6 +97,7 @@ class UserController {
         res.send('Senha incorreta');
       }
     } else {
+      res.status(404);
       res.json({ err: false });
     }
   }
