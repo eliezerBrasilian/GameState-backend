@@ -94,11 +94,11 @@ class UserController {
         });
       } else {
         res.status(406);
-        res.send('Senha incorreta');
+        res.json({ err: 'Senha incorreta' });
       }
     } else {
       res.status(404);
-      res.json({ err: false });
+      res.json({ err: 'email invalido' });
     }
   }
 }
