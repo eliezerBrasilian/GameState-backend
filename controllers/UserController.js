@@ -92,6 +92,7 @@ class UserController {
           nome: user.nome,
           isPremium: user.isPremium,
           username: user.username,
+          profilePhoto: user.profile_photo,
         });
       } else {
         res.status(406).json({ err: 'Senha incorreta' });
