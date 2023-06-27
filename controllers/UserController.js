@@ -79,6 +79,7 @@ class UserController {
             nome: user.nome,
             isPremium: user.isPremium,
             username: user.username,
+            profilePhoto: user.profile_photo,
           },
           secret
         );
