@@ -49,11 +49,11 @@ class User {
     try {
       // const imageBinary = fs.readFileSync(imagePath);
       // const imageBase64 = imageBinary.toString('base64');
-      const imageBinary = await RNFS.readFile(imagePath, 'base64');
-      const imageBytes = Buffer.from(imageBinary, 'base64');
+      // const imageBinary = await RNFS.readFile(imagePath, 'base64');
+      // const imageBytes = Buffer.from(imageBinary, 'base64');
 
       await knex('usuario_tb')
-        .update({ profile_photo: imageBytes })
+        .update({ profile_photo: imagePath })
         .where({ id: id });
 
       console.log('Imagem atualizada no banco de dados com sucesso');
