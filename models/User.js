@@ -47,6 +47,7 @@ class User {
   }
   async updateProfilePhoto(imagePath, id) {
     try {
+      let result;
       // const imageBinary = fs.readFileSync(imagePath);
       // const imageBase64 = imageBinary.toString('base64');
       // const imageBinary = await RNFS.readFile(imagePath, 'base64');
@@ -54,13 +55,21 @@ class User {
 
       await knex('usuario_tb')
         .update({ profile_photo: imagePath })
-        .where({ id: id });
+        .where({ id: id })
+        .then((r) => {
+          console.log('success' + r);
+          result = true;
+        })
+        .catch((e) => {
+          console.log(e);
+          result = false;
+        });
 
       console.log('Imagem atualizada no banco de dados com sucesso');
-      return true;
+      return result;
     } catch (error) {
       console.log('Erro ao enviar a imagem para o banco de dados:', error);
-      return false;
+      return result;
     }
   }
 }
