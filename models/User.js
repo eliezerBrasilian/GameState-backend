@@ -1,4 +1,5 @@
 let knex = require('../database/connection');
+const fs = require('fs');
 class User {
   async new(email, nome, senha) {
     try {
@@ -47,14 +48,17 @@ class User {
   async updateProfilePhoto(imagePath, id) {
     try {
       const imageBinary = fs.readFileSync(imagePath);
+      const imageBase64 = imageBinary.toString('base64');
 
       await knex('usuario_tb')
-        .update({ profile_photo: imageBinary })
+        .update({ profile_photo: imageBase64 })
         .where({ id: id });
 
       console.log('Imagem atualizada no banco de dados com sucesso');
+      return true;
     } catch (error) {
       console.log('Erro ao enviar a imagem para o banco de dados:', error);
+      return false;
     }
   }
 }
