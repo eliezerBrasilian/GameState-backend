@@ -103,6 +103,17 @@ class UserController {
       res.json({ err: 'email invalido' });
     }
   }
+  async getProfilePhoto(req, res) {
+    let { id } = req.params;
+
+    let gotImage = await User.getProfilePhoto(id);
+    console.log(gotImage);
+    if (gotImage) {
+      res.status(200).json({ profilePhoto: gotImage });
+    } else {
+      res.status(400).send('imagem de perfil não encontrada');
+    }
+  }
   async updateProfilePhoto(req, res) {
     let { imagePath, id } = req.body;
 

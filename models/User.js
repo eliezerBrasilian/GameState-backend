@@ -45,14 +45,23 @@ class User {
       return false;
     }
   }
+
+  async getProfilePhoto(id) {
+    try {
+      let q = await knex
+        .select('profile_photo')
+        .from('usuario_tb')
+        .where({ id: id });
+      console.log(q);
+      return q.length > 0 ? q : null;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
   async updateProfilePhoto(imagePath, id) {
     try {
       let result;
-      // const imageBinary = fs.readFileSync(imagePath);
-      // const imageBase64 = imageBinary.toString('base64');
-      // const imageBinary = await RNFS.readFile(imagePath, 'base64');
-      // const imageBytes = Buffer.from(imageBinary, 'base64');
-
       await knex('usuario_tb')
         .update({ profile_photo: imagePath })
         .where({ id: id })
