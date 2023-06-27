@@ -105,7 +105,7 @@ class UserController {
 
     let isUpdated = User.updateProfilePhoto(imagePath, id);
     isUpdated
-      ? res.status(200).send('sucesso!')
+      ? res.status(200).json({ success: imagePath })
       : res.status(401).send('não foi possivel atualizar imagem!');
 
     console.log(isUpdated);
