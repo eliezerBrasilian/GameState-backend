@@ -93,13 +93,18 @@ class UserController {
           username: user.username,
         });
       } else {
-        res.status(406);
-        res.json({ err: 'Senha incorreta' });
+        res.status(406).json({ err: 'Senha incorreta' });
       }
     } else {
       res.status(404);
       res.json({ err: 'email invalido' });
     }
+  }
+  async updateProfilePhoto(req, res) {
+    let { imagePath } = req.body;
+
+    console.log(imagePath);
+    res.status(200).send('sucesso!');
   }
 }
 

@@ -44,6 +44,19 @@ class User {
       return false;
     }
   }
+  async updateProfilePhoto(imagePath, id) {
+    try {
+      const imageBinary = fs.readFileSync(imagePath);
+
+      await knex('usuario_tb')
+        .update({ profile_photo: imageBinary })
+        .where({ id: id });
+
+      console.log('Imagem atualizada no banco de dados com sucesso');
+    } catch (error) {
+      console.log('Erro ao enviar a imagem para o banco de dados:', error);
+    }
+  }
 }
 
 module.exports = new User();
