@@ -46,6 +46,7 @@ class UserController {
           nome: decoded.nome,
           isPremium: decoded.isPremium,
           username: decoded.username,
+          profilePhoto: user.profile_photo,
         });
       } catch (err) {
         res.status(403);
