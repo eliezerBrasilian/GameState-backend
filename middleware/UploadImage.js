@@ -10,7 +10,7 @@ cloudinary.config({
 });
 
 const upload = multer({
-  dest: 'uploads/images',
+  dest: 'temp/images',
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
