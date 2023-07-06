@@ -2,10 +2,11 @@ let Game = require('../models/Game');
 
 class GameController {
   async saveGame(req, res) {
-    let { id_usuario, id_console, nome, descricao, capa, finisheddate } =
-      req.body;
-
-    //verificar antes
+    let { id_usuario, id_console, nome, descricao, finisheddate } = req.body;
+    const capa = req.imageUrl;
+    console.log('SAVE - GAME: ' + capa);
+    //res.send('SAVE - GAME: ' + capa);
+    //verificar antes se os dados não são undefined
     let IsGameSaved = await Game.new(
       id_usuario,
       id_console,
@@ -22,6 +23,9 @@ class GameController {
       res.send({ err: 'falha ao inserir' });
     }
   }
+
+  //////
+
   async listGames(req, res) {
     // let id_usuario = req.params.id;
     // if (id_usuario === undefined) {

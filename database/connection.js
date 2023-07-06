@@ -1,7 +1,7 @@
 require('dotenv').config();
-const { database, host, port, user, password, urlElephantSQL } = process.env;
-const knex = require('knex');
 
+const knex = require('knex');
+const { database, host, port, user, password, urlElephantSQL } = process.env;
 const db = knex({
   client: 'pg',
   connection: {

@@ -115,14 +115,13 @@ class UserController {
     }
   }
   async updateProfilePhoto(req, res) {
-    let { imagePath, id } = req.body;
+    let { user_id } = req.body;
+    const image = req.imageUrl;
 
-    let isUpdated = User.updateProfilePhoto(imagePath, id);
+    let isUpdated = User.updateProfilePhoto(image, user_id);
     isUpdated
-      ? res.status(200).json({ success: imagePath })
+      ? res.status(200).json({ success: image })
       : res.status(401).send('não foi possivel atualizar imagem!');
-
-    console.log(isUpdated);
   }
 }
 
