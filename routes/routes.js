@@ -23,6 +23,7 @@ router.get('/user/:id/profile/photo', UserController.getProfilePhoto);
 router.get('/games/:id/:page', UserAuth, GameController.listGames);
 router.post('/game', UploadImage, GameController.saveGame);
 router.post('/game/:id', UserAuth, GameController.deleteGame);
+router.post('/edit/game', UserAuth, UploadImage, GameController.editGame);
 router.get('/consoles', ConsoleController.listConsoles);
 
 module.exports = router;

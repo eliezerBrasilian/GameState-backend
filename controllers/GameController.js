@@ -24,8 +24,6 @@ class GameController {
     }
   }
 
-  //////
-
   async listGames(req, res) {
     // let id_usuario = req.params.id;
     // if (id_usuario === undefined) {
@@ -65,6 +63,22 @@ class GameController {
     }
     res.status(409);
     res.send({ err: 'falha ao deletar game' });
+  }
+  async editGame(req, res) {
+    const { id_usuario, id_game, id_console, nome, finisheddate } = req.body;
+    const capa = await req.imageUrl;
+    console.log(id_usuario);
+    const isGameEdited = await Game.editGame(
+      id_usuario,
+      id_game,
+      id_console,
+      nome,
+      capa,
+      finisheddate
+    );
+    isGameEdited
+      ? res.status(200).send({ success: 'game edited successfully' })
+      : res.status(304).send({ err: 'error on updated game' });
   }
 }
 

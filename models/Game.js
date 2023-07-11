@@ -31,6 +31,7 @@ class Game {
           'j.descricao',
           'j.finisheddate',
           'c.nome as nome_console',
+          'c.id as id_console',
         ])
         .from('jogos_tb as j')
         .innerJoin('consoles_tb as c', 'j.id_console', '=', 'c.id')
@@ -73,6 +74,22 @@ class Game {
       return false;
     }
   }
+  async editGame(id_usuario, id_game, id_console, nome, capa, finisheddate) {
+    try {
+      await knex('jogos_tb')
+        .update({
+          id_console: id_console,
+          nome: nome,
+          capa: capa,
+          finisheddate: finisheddate,
+        })
+        .where({ id: id_game, id_usuario: id_usuario });
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
+/*update jogos_tb set nome='CELESTE 1' where id=128 and id_usuario=1;*/
 
 module.exports = new Game();

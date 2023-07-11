@@ -17,7 +17,7 @@ const upload = multer({
 }).single('capa');
 
 module.exports = function uploadImage(req, res, next) {
-  upload(req, res, function (error) {
+  upload(req, res, async function (error) {
     if (error) {
       console.error('Erro no upload do arquivo:', error);
       res.status(500).send('Erro no upload do arquivo');
@@ -25,7 +25,7 @@ module.exports = function uploadImage(req, res, next) {
       const capa = req.file;
       console.log(capa);
 
-      cloudinary.uploader.upload(capa.path, (error, result) => {
+      await cloudinary.uploader.upload(capa.path, (error, result) => {
         if (error) {
           console.error('Erro no upload para o Cloudinary:', error);
           res.status(500).send('Erro no upload da imagem');

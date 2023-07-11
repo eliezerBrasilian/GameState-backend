@@ -12,7 +12,7 @@ module.exports = function (req, res, next) {
       var decoded = jwt.verify(token, secret);
       console.log(decoded);
       res.status(200);
-      //   res.send('Voce esta logado entao tem permissao!');
+      console.log('Voce esta logado entao tem permissao!');
       next();
     } catch (err) {
       res.status(403);
