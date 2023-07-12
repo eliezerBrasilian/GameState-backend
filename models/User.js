@@ -26,6 +26,7 @@ class User {
         .table('usuario_tb');
 
       if (result.length > 0) {
+        console.log(result[0]);
         return result[0];
       } else {
         return undefined;

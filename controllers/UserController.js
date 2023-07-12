@@ -4,7 +4,7 @@ let secret = 'hdudidhd8383bdbdbdbd';
 
 class UserController {
   async create(req, res) {
-    let { email, nome, senha } = req.body;
+    let { email, name, password } = req.body;
     console.log('email: ' + email);
     let emailExists = await User.findEmail(email);
     console.log(emailExists);
@@ -14,9 +14,9 @@ class UserController {
       return;
     } else {
       //verificar se os dados estao vazios antes
-      if (nome !== undefined && email !== undefined && senha !== undefined) {
-        console.log('nome: ' + nome);
-        await User.new(email, nome, senha);
+      if (name !== undefined && email !== undefined && password !== undefined) {
+        console.log('name: ' + name);
+        await User.new(email, name, password);
         res.status(200);
         res.send({ success: 'dados inseridos' });
       } else {
@@ -43,7 +43,7 @@ class UserController {
           token: token,
           id: decoded.id,
           email: decoded.email,
-          nome: decoded.nome,
+          name: decoded.name,
           isPremium: decoded.isPremium,
           username: decoded.username,
           profilePhoto: decoded.profilePhoto,
@@ -60,14 +60,16 @@ class UserController {
     }
   }
   async login(req, res) {
-    var { email, senha } = req.body;
+    var { email, password } = req.body;
     var user = await User.findByEmail(email);
 
     if (user != undefined) {
       //var resultado = await bcrypt.compare(password,user.password);
-      var resultado = await String(senha).localeCompare(String(user.senha));
+
+      var resultado = await String(password).localeCompare(String(user.senha));
+
       console.log(
-        `senhas: ${String(senha)} : ${String(
+        `passwords: ${String(password)} = ${String(
           user.senha
         )} - resultado: ${resultado}`
       );
@@ -77,8 +79,8 @@ class UserController {
           {
             id: user.id,
             email: user.email,
-            nome: user.nome,
-            isPremium: user.isPremium,
+            name: user.nome,
+            isPremium: user.ispremium,
             username: user.username,
             profilePhoto: user.profile_photo,
           },
@@ -90,13 +92,13 @@ class UserController {
           token: token,
           id: user.id,
           email: user.email,
-          nome: user.nome,
+          name: user.name,
           isPremium: user.isPremium,
           username: user.username,
           profilePhoto: user.profile_photo,
         });
       } else {
-        res.status(406).json({ err: 'Senha incorreta' });
+        res.status(406).json({ err: 'password incorreta' });
       }
     } else {
       res.status(404);
