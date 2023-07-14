@@ -4,19 +4,29 @@ let secret = 'hdudidhd8383bdbdbdbd';
 
 class UserController {
   async create(req, res) {
-    let { email, name, password } = req.body;
+    let { email, name, password, username } = req.body;
     console.log('email: ' + email);
     let emailExists = await User.findEmail(email);
-    console.log(emailExists);
+    const usernameExists = await User.findUsername(username);
+
     if (emailExists) {
       res.status(401);
       res.json({ err: 'O email já está em uso!' });
       return;
+    } else if (usernameExists) {
+      res.status(401);
+      res.json({ err: 'O username já está em uso!' });
+      return;
     } else {
       //verificar se os dados estao vazios antes
-      if (name !== undefined && email !== undefined && password !== undefined) {
+      if (
+        name !== undefined &&
+        email !== undefined &&
+        password !== undefined &&
+        username !== undefined
+      ) {
         console.log('name: ' + name);
-        await User.new(email, name, password);
+        await User.new(email, name, password, username);
         res.status(200);
         res.send({ success: 'dados inseridos' });
       } else {
@@ -124,6 +134,29 @@ class UserController {
     isUpdated
       ? res.status(200).json({ success: image })
       : res.status(401).send('não foi possivel atualizar imagem!');
+  }
+  async updateUsername(req, res) {
+    const { user_id, username } = req.body;
+    const usernameExists = await User.findUsername(username);
+    if (usernameExists) {
+      res.status(401).send('Este username já está em uso!');
+      return;
+    }
+    const isUpdated = User.updateUsername(username, user_id);
+    isUpdated
+      ? res.status(200).send('username atualizado com sucesso!')
+      : res.status(401).send('não foi possivel atualizar username!');
+  }
+  async getUsername(req, res) {
+    let { id } = req.params;
+
+    let gotUsername = await User.getUsername(id);
+
+    if (gotUsername != null) {
+      res.status(200).json({ username: gotUsername });
+    } else {
+      res.status(400).send('imagem de perfil não encontrada');
+    }
   }
 }
 

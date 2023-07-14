@@ -1,9 +1,9 @@
 let knex = require('../database/connection');
 const fs = require('fs');
 class User {
-  async new(email, nome, senha) {
+  async new(email, nome, senha, username) {
     try {
-      await knex.insert({ email, nome, senha }).table('usuario_tb');
+      await knex.insert({ email, nome, senha, username }).table('usuario_tb');
       console.log('inseriu');
     } catch (err) {
       console.log(err);
@@ -80,6 +80,54 @@ class User {
     } catch (error) {
       console.log('Erro ao enviar a imagem para o banco de dados:', error);
       return result;
+    }
+  }
+  async findUsername(username) {
+    try {
+      let q = await knex
+        .select('*')
+        .from('usuario_tb')
+        .where({ username: username });
+      return q.length > 0 ? true : false;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
+  async updateUsername(username, user_id) {
+    try {
+      let result;
+      await knex('usuario_tb')
+        .update({ username: username })
+        .where({ id: user_id })
+        .then((r) => {
+          console.log('success' + r);
+          result = true;
+        })
+        .catch((e) => {
+          console.log(e);
+          result = false;
+        });
+
+      console.log('Username atualizada no banco de dados com sucesso');
+      return result;
+    } catch (error) {
+      console.log('Erro ao atualizar username: ', error);
+      return result;
+    }
+  }
+  async getUsername(id) {
+    try {
+      let q = await knex
+        .select('username')
+        .from('usuario_tb')
+        .where({ id: id });
+
+      console.log(q);
+      return q.length > 0 ? q : null;
+    } catch (e) {
+      console.log(e);
+      return null;
     }
   }
 }
